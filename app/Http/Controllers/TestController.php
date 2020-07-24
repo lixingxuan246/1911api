@@ -133,6 +133,7 @@ public function sign2(){
     $contents = file_get_contents(storage_path('pub.key'));
     $sign = openssl_get_publickey($contents);
     $ok = openssl_verify($data,$signature,$sign,OPENSSL_ALGO_SHA1);
+    echo '1';
  echo $ok;
 
 }
