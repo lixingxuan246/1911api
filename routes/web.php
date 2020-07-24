@@ -28,11 +28,14 @@ Route::post('/regpost','RegController@regpost');
 
 Route::post('/loginpost','RegController@loginpost');
 
-Route::get('/center','RegController@center');
+Route::get('/center','RegController@center')->middleware('accesstoken','viewcount');
 Route::get('/apiredis','RegController@apiredis');
 
 
-Route::get('/kucun','RegController@kucun');
-Route::get('/qiandao','RegController@qiandao');
+Route::get('/kucun','RegController@kucun')->middleware('accesstoken','viewcount');
+Route::get('/qiandao','RegController@qiandao')->middleware('accesstoken','viewcount');
 
 
+Route::post('/aes','TestController@aes');//对称解密
+Route::post('/aes2','TestController@aes2');//非对称解密
+Route::get('/sign','TestController@sign');//签名

@@ -60,12 +60,71 @@ class TestController extends Controller
     }
 
 
+/*
+ *
+ *对称解密
+ * */
+    public function aes(){
+        $method = 'AES-256-CBC';
+        $enc_data = $_POST['data'];
+//        $data = '李星轩';
+        $iv = 'jjjjjkkkkkiiiiii';
+        $key = '1911www';
+        $data = openssl_decrypt($enc_data,$method,$key,OPENSSL_RAW_DATA,$iv);
+            echo '解密的数据:'.$data;
 
 
+//        echo '访问api';
+    }
+
+    /*
+     * 非对称解密
+     * */
+    public function aes2(){
+       $data = $_POST['data'];
+        $content = file_get_contents(storage_path('priv.key'));
+        $priv_key = openssl_get_privatekey($content);
+        openssl_private_decrypt($data,$dec_data,$priv_key);
+       echo '解密的数据：'.$dec_data;
+
+       $wwwpub = file_get_contents(storage_path('pub.key'));
+       openssl_public_encrypt($dec_data,$enc_data,$wwwpub);
+       echo '再次加密的：'.$enc_data;
+        $url = 'http://www.1911.com/usr/aes3';
+        $post_data = [
+            'data' => $enc_data,
+        ];
+        $ch=curl_init();
+        //设置参数
+        curl_setopt($ch,CURLOPT_URL,$url);
+        curl_setopt($ch,CURLOPT_POST,1);
+        curl_setopt($ch,CURLOPT_POSTFIELDS,$post_data);
+        curl_setopt($ch,CURLOPT_RETURNTRANSFER,1);
+        //发送请求
+        $response=curl_exec($ch);
+        echo $response;
+        curl_close($ch);
 
 
+    }
 
 
+/*
+ * 签名
+ * */
+public function sign(){
+        $key = 'api1911';
+        $sign = $_GET['sign'];
+        $data = $_GET['data'];
+        $sign_str = sha1($data.$key);
+        if($sign_str == $sign){
+            echo '签名成功';
+        }else{
+            echo '签名失败';
+        }
+
+
+}
 
     public function getwww(){
         $url = "http://www.1911.com/usr/info";
