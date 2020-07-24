@@ -126,6 +126,17 @@ public function sign(){
 
 }
 
+
+public function sign2(){
+    $data = $_POST['data'];
+    $signature = $_POST['sign'];
+    $contents = file_get_contents(storage_path('pub.key'));
+    $sign = openssl_get_publickey($contents);
+    $ok = openssl_verify($data,$signature,$sign,OPENSSL_ALGO_SHA1);
+ echo $ok;
+
+}
+
     public function getwww(){
         $url = "http://www.1911.com/usr/info";
         $response = file_get_contents($url);

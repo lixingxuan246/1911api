@@ -39,3 +39,7 @@ Route::get('/qiandao','RegController@qiandao')->middleware('accesstoken','viewco
 Route::post('/aes','TestController@aes');//对称解密
 Route::post('/aes2','TestController@aes2');//非对称解密
 Route::get('/sign','TestController@sign');//签名
+Route::post('/signtwo','TestController@sign2');//签名
+
+
+
