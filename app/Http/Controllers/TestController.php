@@ -126,15 +126,22 @@ public function sign(){
 
 }
 
-
+/*
+ * 验签解密
+ * */
 public function sign2(){
     $data = $_POST['data'];
     $signature = $_POST['sign'];
     $contents = file_get_contents(storage_path('pub.key'));
     $sign = openssl_get_publickey($contents);
     $ok = openssl_verify($data,$signature,$sign,OPENSSL_ALGO_SHA1);
-    echo '1';
- echo $ok;
+
+// echo $ok;
+ if($ok ==1){
+     echo '验签成功';
+ }else{
+     echo '验签失败';
+ }
 
 }
 
