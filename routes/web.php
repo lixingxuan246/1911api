@@ -41,5 +41,6 @@ Route::post('/aes2','TestController@aes2');//非对称解密
 Route::get('/sign','TestController@sign');//签名
 Route::post('/signtwo','TestController@sign2');//签名
 
+Route::post('/test2','TestController@test2');//签名
 
-
+Route::get('/register','RegController@register');//注册

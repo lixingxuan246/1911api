@@ -153,4 +153,33 @@ public function sign2(){
 
 
 
+    public function test2(){
+
+        $server = $_SERVER;
+        print_r($server);
+
+        $data2 = $_POST['data2'];
+        $data = $_POST['data'];
+        $sign = $_POST['sign'];
+        $method = 'AES-256-CBC';
+        $key = '1911';
+        $iv = 'lkjhgfoiuytrlkjh';
+        $openssl = OPENSSL_RAW_DATA;
+
+        $kk = openssl_decrypt($data,$method,$key,$openssl,$iv);
+
+//    echo $kk;die;
+
+
+//        echo $data.'??????????????????';echo $sign.'???????????????????????';
+//die;
+        $contents = file_get_contents(storage_path('pub.key'));
+        $sign2 = openssl_get_publickey($contents);
+        $ok = openssl_verify($data2,$kk,$sign2,OPENSSL_ALGO_SHA1);
+    echo '<br>'.'!!!...';
+    echo $ok;
+
+
+    }
+
 }

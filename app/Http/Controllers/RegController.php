@@ -199,4 +199,24 @@ class RegController extends Controller
     }
 
 
+
+    public function register(){
+
+//        header("Access-Control-Allow-Origin:*");
+//        echo '1111';
+//        $data = $_GET['test'];
+//        echo $data;
+        $text = $_GET['text'];
+        $email = $_GET['email'];
+        $pass = $_GET['pass'];
+        $data = [
+          'text' => $text,
+          'email' => $email,
+          'pass' => $pass
+        ];
+        $data2 = json_encode($data);
+
+        $response = 'abc({"errno":0000,"msg":'.$data2.'})';
+        echo $response;
+    }
 }
